@@ -16,7 +16,11 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    static int contador = 0;
+    final Calendar fecha_actual = Calendar.getInstance();
+    int anio;
+    int mes;
+    int dia;
+    static final int DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if(contador != 0) {
-            Bundle parametros = getIntent().getExtras();
+        Bundle parametros = getIntent().getExtras();
+
+        if(parametros != null) {
+
 
             ((TextView) findViewById(R.id.et_nombre)).setText(parametros.getString(getResources().getString(R.string.et_nombre)));
             ((TextView) findViewById(R.id.et_fec_nacimiento)).setText(parametros.getString(getResources().getString(R.string.et_fec_naci)));
@@ -51,6 +57,54 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+        anio = fecha_actual.get(Calendar.YEAR);
+        mes = fecha_actual.get(Calendar.MONTH) + 1;
+        dia = fecha_actual.get(Calendar.DAY_OF_MONTH);
+        final String fecha = dia + "/" + mes + "/" + anio;
+
+        ((EditText) findViewById(R.id.et_fec_nacimiento)).setText(fecha);
+
+        mostrarDatePicker();
+
     }
+
+    public void mostrarDatePicker(){
+
+        Button b_sfecha = (Button) findViewById(R.id.btn_fecha);
+
+        b_sfecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog(DIALOG_ID);
+            }
+        });
+
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+
+        if(id == DIALOG_ID){
+
+            return new DatePickerDialog(this,R.style.Picker_fecha,datepickerListener, anio,mes,dia);
+        }
+
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener datepickerListener = new DatePickerDialog.OnDateSetListener(){
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
+
+            anio = year;
+            mes = monthOfYear + 1;
+            dia = dayOfMonth;
+
+            String fecha1 = dia + "/" + mes + "/" + anio;
+
+            ((EditText) findViewById(R.id.et_fec_nacimiento)).setText(fecha1);
+
+        }
+    };
 
 }

@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="estilo_boton" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColor">@color/color_blanco</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Picker_fecha" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

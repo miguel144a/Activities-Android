@@ -17,7 +17,6 @@ public class DetalleContacto extends AppCompatActivity {
         setContentView(R.layout.contacto_detalle);
 
         MainActivity ma = new MainActivity();
-        ma.contador = 1;
         Bundle parametros = getIntent().getExtras();
 
         ((TextView) findViewById(R.id.tv_nombre)).setText(parametros.getString(getResources().getString(R.string.et_nombre)));
